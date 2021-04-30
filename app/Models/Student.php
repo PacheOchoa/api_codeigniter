@@ -8,5 +8,5 @@ class Student extends Model
 {
     protected $table = 'students';
 
-    protected $allowedFields = ['name','email','id_student','secret_key'];
+    protected $allowedFields = ['name','email','id_student','secret_key','created_at','updated_at'];
 }

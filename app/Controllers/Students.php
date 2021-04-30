@@ -3,6 +3,7 @@
 namespace App\Controllers;
 
 use App\Models\Student;
+use DateTime;
 
 class Students extends BaseController
 {
@@ -50,12 +51,14 @@ class Students extends BaseController
 
            $id_student = Students::hashToken($data['name']);
            $secret_key = Students::hashToken($data['email']);
+           $created_at = new DateTime();
 
  
             $savedata = array('name'=> $data['name'],
                            'email' => $data['email'],
                            'id_student' =>$id_student,
-                           'secret_key'=> $secret_key
+                           'secret_key'=> $secret_key,
+                           'created_at' =>$created_at->format("Y-m-d H:i:s")
                     );
 
               
@@ -70,7 +73,7 @@ class Students extends BaseController
             return json_encode(array("status" => 201,"details" => "Ok, take your credencials and saved",
                                     "credencials" => array("id_student" => $id_student,"secret_key" => $secret_key)));
            }else{
-               return json_encode(array("status"=>400,"details"=> "no se pudo procesar la solicitud,intentar de nuevo"));
+               return json_encode(array("status"=>409,"details"=> "no se pudo procesar la solicitud,intentar de nuevo"));
            }  
 
            
